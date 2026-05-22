@@ -1,7 +1,5 @@
-# GPU_Ldr_RC4 — clang on Windows (D3D11 compute-shader RC4)
-
 CC      = clang
-CFLAGS  = -O2 -Wall -Wextra -D_CRT_SECURE_NO_WARNINGS -Iinclude
+CFLAGS  = -Wall -Wextra -D_CRT_SECURE_NO_WARNINGS -Iinclude
 LDLIBS  = -ld3d11 -ld3dcompiler
 
 BUILD   = build

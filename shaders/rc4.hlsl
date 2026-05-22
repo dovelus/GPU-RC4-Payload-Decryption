@@ -1,8 +1,11 @@
 // rc4.hlsl — DirectCompute RC4 (KSA + PRGA + XOR), single-threaded.
 //
-// RC4 cannot be parallelised across the same key — each S-box swap depends
-// on the previous state — so we dispatch (1,1,1) and run the entire stream
+// As my knowledge and research i ended up findning that RC4 cannot be parallelised across the same key —
+// each S-box swap depends on the previous state
+// so we dispatch (1,1,1) and run the entire stream
 // cipher in one thread.
+//
+//  if anyone has ideas on how to parallelise make a pull request
 //
 // Resource layout:
 //   b0 : Params         — key_len + data_len (bytes)

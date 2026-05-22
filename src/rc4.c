@@ -13,7 +13,7 @@
 
 #define SAFE_RELEASE(p) do { if (p) { (p)->lpVtbl->Release((p)); (p) = NULL; } } while (0)
 
-/* Shader sourcem - for single file referce, refeer to rc4.hlsl*/
+// Shader sourcem - for single file referce, refeer to rc4.hlsl
 static const char g_shader_src[] =
 "cbuffer Params : register(b0) {                                                \n"
 "    uint key_len; uint data_len; uint pad0; uint pad1;                         \n"
